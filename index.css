@@ -1,0 +1,28 @@
+.tick text {
+  fill:#635F5D;
+  opacity: 1;
+  font-size: 1.4em;
+}
+.tick{
+  fill:#635F5D;
+  opacity: .5;
+}
+
+.tick line{
+  fill:#635F5D;
+  opacity:.5;
+}
+
+rect {
+  fill:steelblue;
+}
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+.title{
+  font-variant: small-caps;
+  font-family: fantasy;
+  font-size: 2.9em;
+  fill:red;
+}
