@@ -19,7 +19,7 @@ const render =(data) =>{
   .domain(data.map(yValue))
   .range([0,barHeight])
  const yAxis = d3.axisLeft(yScale)
-
+ const tooltip = d3.select("#line").append("g").attr("translate",`translate(0,${positions.height})`).attr("class","tooltip")
  const svg = d3.select("#line").append("svg").attr("height",positions.height).attr("width",positions.width)
 
  let g = svg.append("g").attr("transform",`translate(${margin.left},${margin.top})`);
@@ -29,10 +29,20 @@ const render =(data) =>{
     .attr("height",yScale.bandwidth())
     .attr("stroke","white")
     .attr("stroke-width",3)
+    .on("mouseover",function(d,i){
+      tooltip.html(`<div>${d.country} Population:${tickFormat(d.population)}</div>`)
+             .style("top",(d3.event.pageY )  + "px")
+             .style("right",(d3.event.pageX) + "px").style("display","block")
+    })
+    .on("mouseout",function(d,i){
+      tooltip.style("display","none")
+    })
+    
+
     rect.transition()
     .attr("width",d=>xScale(xValue(d)))
     .duration(function(d,i){
-      if(i <= 0){
+      if(i <= 0){ 
           return positions.width * 2
       }else if (i<=1) {
           return  positions.height *3
@@ -45,7 +55,7 @@ const render =(data) =>{
         return positions.height *6
       }
     })
-
+    
 let xGroup = g.append("g").call(xAxis).attr('transform', `translate(0,${barHeight})`)
             xGroup.select(".domain").remove()
 let yGroup = g.append("g").call(yAxis)
